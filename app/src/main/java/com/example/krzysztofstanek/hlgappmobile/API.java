@@ -19,9 +19,9 @@ package com.example.krzysztofstanek.hlgappmobile;
 public class API {
     public static String result="";
 
-    public String url_base = "http://185.11.103.10/absolwentAPP/request_2314151352.php";
-    public String api_key = "15135fdg34245g1fdas1agKKas1";
-    public String request_key = "jjGMg221gb02199gva";
+    public String url_base = "http://159.69.245.224/hlg-bloki/API/JHGSDAG1254sgd1tfs113R/";
+    //public String api_key = "15135fdg34245g1fdas1agKKas1";
+    //public String request_key = "jjGMg221gb02199gva";
     public JSONObject response;
     ///request_2314151352.php?api_key=15135fdg34245g1fdas1agKKas1&request_key=jjGMg221gb02199gva
 
@@ -29,9 +29,11 @@ public class API {
         String params_txt="";
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            params_txt += "&"+entry.getKey()+"="+entry.getValue();
+            //params_txt += "&"+entry.getKey()+"="+entry.getValue();
+            params_txt += entry.getValue();
         }
-        String request_url = this.url_base+"?"+"api_key="+this.api_key+"&request_key="+this.request_key+params_txt;
+        //String request_url = this.url_base+"?"+"api_key="+this.api_key+"&request_key="+this.request_key+params_txt;
+        String request_url = this.url_base+"?"+params_txt;
         JsonTask task = new JsonTask();
         task.execute(request_url).get();
         return task.responde;

@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
 
-        bZarejestruj.setOnClickListener(new View.OnClickListener() {
+        /*bZarejestruj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, rejestracjaActivity.class);
                 MainActivity.this.startActivity(intent);
             }
-        });
+        });*/
 
         bZaloguj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     if(api.zaloguj(login, haslo)){
-                        Intent intent = new Intent(MainActivity.this, tablica.class);
-                        MainActivity.this.startActivity(intent);
+                        /*Intent intent = new Intent(MainActivity.this, tablica.class);
+                        MainActivity.this.startActivity(intent);*/
+                        Toast.makeText(MainActivity.this, "GRA", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         Toast.makeText(MainActivity.this, "Nieprawidłowy login/hasło - weź już nie pij ;)", Toast.LENGTH_SHORT).show();
