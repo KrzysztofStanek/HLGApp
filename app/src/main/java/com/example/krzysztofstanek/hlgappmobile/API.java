@@ -20,20 +20,16 @@ public class API {
     public static String result="";
 
     public String url_base = "http://159.69.245.224/hlg-bloki/API/JHGSDAG1254sgd1tfs113R/";
-    //public String api_key = "15135fdg34245g1fdas1agKKas1";
-    //public String request_key = "jjGMg221gb02199gva";
     public JSONObject response;
-    ///request_2314151352.php?api_key=15135fdg34245g1fdas1agKKas1&request_key=jjGMg221gb02199gva
 
     public String request(Map<String, String> params) throws ExecutionException, InterruptedException {
         String params_txt="";
-
+        String action = "";
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            //params_txt += "&"+entry.getKey()+"="+entry.getValue();
-            params_txt += entry.getValue();
+            params_txt += ""+entry.getKey()+"="+entry.getValue()+"|";
         }
-        //String request_url = this.url_base+"?"+"api_key="+this.api_key+"&request_key="+this.request_key+params_txt;
-        String request_url = this.url_base+"?"+params_txt;
+        String request_url = this.url_base+params_txt;
+        Log.d("URL API", request_url);
         JsonTask task = new JsonTask();
         task.execute(request_url).get();
         return task.responde;
@@ -46,19 +42,113 @@ public class API {
         Log.d("create", json);
         JSONObject obj = new JSONObject(json);
         response = obj;
-        data.put("status",obj.getString("status") );
-        data.put("desc",obj.getString("desc") );
-        data.put("data",obj.getString("data") );
+        data.put("status",obj.optString("status") );
+        data.put("desc",obj.optString("desc") );
+        data.put("data",obj.optString("data") );
 
 
-        data.put("auth_id",obj.getString("auth_id") );
-        data.put("user_id",obj.getString("user_id") );
-        data.put("nick",obj.getString("nick") );
+        data.put("auth_id",obj.optString("auth_id") );
+        data.put("user_id",obj.optString("user_id") );
+        data.put("nick",obj.optString("nick") );
 
 
 
         return data;
     }
+
+    public Map<String, String> createArrayFromJSON(String json) throws JSONException {
+
+        Map<String, String> data = new HashMap<>();
+        //JSONObject obj = new JSONObject(json);
+        //response = obj;
+
+        String[] keyvalue = json.split("\\,");
+
+        for (String kv : keyvalue) {
+            String[] temp = kv.split("\\:");
+            String t0 = temp[0]; t0 = t0.replace("\"",""); t0 = t0.replace("[{",""); t0 = t0.replace("}]","");
+            String t1 = temp[1]; t1 = t1.replace("\"",""); t1 = t1.replace("[{",""); t1 = t1.replace("}]","");
+
+            data.put(t0,t1);
+            Log.d("parseJSONbyKSTANEK", t0+" = "+t1);
+        }
+
+
+
+
+        return data;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    //LOGOWNANIE
+    public Boolean zaloguj(String nick, String haslo) throws Exception {
+        Map<String, String> parametr = new HashMap<>();
+
+        String pass_hash = Password.hash(haslo);
+        parametr.put("action", "loguj");
+
+        parametr.put("nick", nick);
+        parametr.put("haslo", pass_hash);
+
+        Map<String, String> data = new HashMap<>();
+        Log.d("TEST", "ZALOGUJ FUNKCJA");
+
+        try {
+            String responde = this.request(parametr);
+            data = this.createData(responde);
+            Log.d("TEST", "DATA: "+data.get("data"));
+            if(data.get("data").equals("TRUE")){
+                String nick_ = data.get("nick"); Log.d("TEST", "NICK: "+nick_);
+                String id_ = data.get("user_id"); Log.d("TEST", "ID: "+id_);
+                String auth_id_=data.get("auth_id"); Log.d("TEST", "AUTH_ID: "+auth_id_);
+                autoryzacja.zaloguj(nick_, id_, auth_id_);
+                return true;
+            }
+            else{
+                //nie loguj
+                Log.d("TEST", "ZALOGUJ - nie TRUE");
+                return false;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.d("CATCH", e.toString());
+        }
+        Log.d("TEST", "ZALOGUJ - nie TRY");
+        return false;
+    }
+
+    //POBIERANIE DANYCH UZYTKOWNIKA
+
+    public Map<String, String> pobierzDaneUzytkownika(String id) throws Exception {
+
+        Map<String, String> parametr = new HashMap<>();
+        parametr.put("action", "pobierzDaneUzytkownika");
+
+        parametr.put("id", id);
+
+
+        Map<String, String> data = new HashMap<>();
+
+
+        try {
+            String responde = this.request(parametr);
+            data = this.createData(responde);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+
+
+
+
+
 
     //REJESTRACJA
 
@@ -117,29 +207,7 @@ public class API {
         return data;
     }
 
-    //POBIERANIE DANYCH UZYTKOWNIKA
 
-    public Map<String, String> pobierzDaneUzytkownika(String id) throws Exception {
-
-        Map<String, String> parametr = new HashMap<>();
-        parametr.put("action", "getUserData");
-
-        parametr.put("id", id);
-
-
-        Map<String, String> data = new HashMap<>();
-
-
-        try {
-            String responde = this.request(parametr);
-            data = this.createData(responde);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return data;
-    }
 
     public Map<String, String> pobierzImpreze(String wojewodztwo) throws Exception {
 
@@ -286,40 +354,7 @@ public class API {
     }
 
 
-    public Boolean zaloguj(String nick, String haslo) throws Exception {
-        Map<String, String> parametr = new HashMap<>();
 
-        String pass_hash = Password.hash(haslo);
-        parametr.put("action", "login");
-
-        parametr.put("nick", nick);
-        parametr.put("haslo", pass_hash);
-
-        Map<String, String> data = new HashMap<>();
-        Log.d("TEST", "ZALOGUJ FUNKCJA");
-
-        try {
-            String responde = this.request(parametr);
-            data = this.createData(responde);
-            Log.d("TEST", "DATA: "+data.get("data"));
-            if(data.get("data").equals("TRUE")){
-                String nick_ = data.get("nick"); Log.d("TEST", "NICK: "+nick_);
-                String id_ = data.get("user_id"); Log.d("TEST", "ID: "+id_);
-                String auth_id_=data.get("auth_id"); Log.d("TEST", "AUTH_ID: "+auth_id_);
-                autoryzacja.zaloguj(nick_, id_, auth_id_);
-                return true;
-            }
-            else{
-                //nie loguj
-                return false;
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
 
     public Boolean czyZalogowany() throws Exception {
 
