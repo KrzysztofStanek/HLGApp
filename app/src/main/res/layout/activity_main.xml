@@ -36,41 +36,49 @@
                     android:id="@+id/loginLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:textColor="@android:color/background_light"
                     android:layout_weight="1"
                     android:text="Login" />
 
-                <EditText
-                    android:id="@+id/login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="textPersonName"
-                    />
+        <EditText
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:padding="8dp"
+            android:background="@layout/border_edit_text"
+            />
 
                 <TextView
                     android:id="@+id/hasloLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textColor="@android:color/background_light"
                     android:text="Hasło" />
 
 
                 <EditText
+
                     android:id="@+id/haslo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:inputType="textPassword"
                     android:layout_marginBottom="20dp"
+                    android:padding="8dp"
+                    android:background="@layout/border_edit_text"
                     />
 
                 <Button
+                    android:layout_marginTop="20dp"
                     android:id="@+id/bZaloguj"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
+                    android:textColor="@android:color/background_light"
+                    android:background="@layout/border_edit_text"
                     android:text="Zaloguj się" />
 
 
@@ -82,10 +90,11 @@
                     android:layout_weight="1"
                     android:cursorVisible="false"
                     android:text="Do prawidłowego działania aplikacji konieczne jest połączenie z internetem"
-                    android:textAlignment="textStart"
+                    android:textAlignment="center"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="10sp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     />
 
                 <Button
@@ -94,7 +103,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="O aplikacji" />
+                    android:background="@layout/border_edit_text"
+                    android:text="O aplikacji"
+                    android:layout_marginBottom="30dp"/>
 
         </LinearLayout>
 </RelativeLayout>

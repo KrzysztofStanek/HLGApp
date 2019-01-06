@@ -144,6 +144,29 @@ public class API {
         return data;
     }
 
+    //POBIERANIE DANYCH UZYTKOWNIKA
+
+    public Map<String, String> pobierzListeBlokow() throws Exception {
+
+        Map<String, String> parametr = new HashMap<>();
+        parametr.put("action", "pobierzListeBlokow");
+
+
+
+        Map<String, String> data = new HashMap<>();
+
+
+        try {
+            String responde = this.request(parametr);
+            data = this.createData(responde);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
 
 
 
