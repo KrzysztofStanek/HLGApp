@@ -9,8 +9,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.krzysztofstanek.hlgappmobile.R;
 
@@ -22,6 +26,9 @@ public class blokiLista extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide(); //hide the title bar
         setContentView(R.layout.activity_bloki_lista);
 
         list = (ListView) findViewById(R.id.listView1);
@@ -59,5 +66,10 @@ public class blokiLista extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, R.layout.bloklistelement, blokiL);
 
         list.setAdapter(adapter);
+    }
+
+    public void onClickListaBlokow(View view) {
+        String name = (String) view.getTag();
+        Toast.makeText(blokiLista.this, name, Toast.LENGTH_SHORT).show();
     }
 }
