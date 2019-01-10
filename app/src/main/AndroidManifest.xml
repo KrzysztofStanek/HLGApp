@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".tablica" />
-        <activity android:name=".blokiLista"></activity>
+        <activity android:name=".blokiLista" />
+        <activity android:name=".szczegolyBloku"></activity>
     </application>
 
 </manifest>

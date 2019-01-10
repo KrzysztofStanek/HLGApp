@@ -69,6 +69,8 @@ public class API {
             String t0 = temp[0]; t0 = t0.replace("\"",""); t0 = t0.replace("[{",""); t0 = t0.replace("}]","");
             String t1 = temp[1]; t1 = t1.replace("\"",""); t1 = t1.replace("[{",""); t1 = t1.replace("}]","");
 
+            t0.replace("\\/", "\\"); t1.replace("\\/", "\\");
+            t0.replace("\\r\\n", " "); t1.replace("\\r\\n", " ");
             data.put(t0,t1);
             Log.d("parseJSONbyKSTANEK", t0+" = "+t1);
         }
@@ -151,6 +153,28 @@ public class API {
         Map<String, String> parametr = new HashMap<>();
         parametr.put("action", "pobierzListeBlokow");
 
+
+
+        Map<String, String> data = new HashMap<>();
+
+
+        try {
+            String responde = this.request(parametr);
+            data = this.createData(responde);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
+    public Map<String, String> pobierzDaneBloku(String id) throws Exception {
+
+        Map<String, String> parametr = new HashMap<>();
+        parametr.put("action", "pobierzDaneBloku");
+
+        parametr.put("id", id);
 
 
         Map<String, String> data = new HashMap<>();
