@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".blokiLista"
+    tools:context=".switcheLista"
     android:background="@drawable/hlg_bg"
     >
     <RelativeLayout
@@ -33,7 +33,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="118dp"
             android:layout_marginTop="20dp"
-            android:text="LISTA BLOKÓW"
+            android:text="LISTA SWITCHY"
             android:textSize="30dp"
             android:textColor="@android:color/background_dark" />
 

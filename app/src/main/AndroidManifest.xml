@@ -21,7 +21,11 @@
         </activity>
         <activity android:name=".tablica" />
         <activity android:name=".blokiLista" />
-        <activity android:name=".szczegolyBloku"></activity>
+        <activity android:name=".szczegolyBloku" />
+        <activity android:name=".klatkiLista" />
+        <activity android:name=".szczegolyKlatki" />
+        <activity android:name=".switcheLista" />
+        <activity android:name=".szczegolySwitcha"></activity>
     </application>
 
 </manifest>
